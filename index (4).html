@@ -1,0 +1,240 @@
+<!doctype html><html lang="ru" data-theme="dark"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>Siteless — клиенты без сайта</title>
+<style>
+:root{--bg:#0b0d12;--card:#141821;--card2:#1b2130;--tx:#e8ebf2;--mu:#8a93a6;--bd:#262d3d;--ac:#6c8cff;--ac2:#8b5cf6;--ok:#34d399;--wr:#fbbf24;--er:#f87171}
+[data-theme=light]{--bg:#f5f6fa;--card:#fff;--card2:#eef0f6;--tx:#161a24;--mu:#667085;--bd:#dfe3ec}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.5 Inter,system-ui,sans-serif;transition:background .3s}
+button,input,select{font:inherit;color:inherit}
+.top{position:sticky;top:0;z-index:5;display:flex;align-items:center;gap:8px;padding:12px 20px;background:color-mix(in srgb,var(--bg) 85%,transparent);backdrop-filter:blur(12px);border-bottom:1px solid var(--bd);flex-wrap:wrap}
+.logo{font-weight:700;font-size:18px;margin-right:12px;background:linear-gradient(90deg,var(--ac),var(--ac2));-webkit-background-clip:text;color:transparent}
+.nav{display:flex;gap:4px;flex:1;overflow:auto}.nav button{background:none;border:0;padding:8px 14px;border-radius:10px;cursor:pointer;color:var(--mu);transition:.2s}
+.nav button:hover{background:var(--card2)}.nav button.on{background:var(--card2);color:var(--tx)}
+.ic{background:var(--card2);border:1px solid var(--bd);border-radius:10px;width:38px;height:38px;cursor:pointer;transition:.2s}.ic:hover{transform:rotate(15deg)}
+main{max-width:1000px;margin:0 auto;padding:24px 16px 80px}.hide{display:none!important}
+.panel,.card{background:var(--card);border:1px solid var(--bd);border-radius:14px}.panel{padding:22px;animation:up .4s}
+@keyframes up{from{opacity:0;transform:translateY(8px)}}
+h1{font-size:26px;margin:0 0 4px}.sub{color:var(--mu);margin:0 0 20px}
+label{display:block;font-size:12px;color:var(--mu);margin:14px 0 6px;text-transform:uppercase;letter-spacing:.06em}
+input,select{width:100%;background:var(--card2);border:1px solid var(--bd);border-radius:10px;padding:10px 12px;outline:0}input:focus,select:focus{border-color:var(--ac)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}@media(max-width:600px){.row{grid-template-columns:1fr}}
+.pills{display:flex;gap:8px;flex-wrap:wrap}.pill{padding:8px 16px;border-radius:999px;border:1px solid var(--bd);background:var(--card2);cursor:pointer;transition:.2s}
+.pill:hover{border-color:var(--ac)}.pill.on{background:var(--ac);border-color:var(--ac);color:#fff}
+details{border:1px solid var(--bd);border-radius:12px;margin-bottom:8px;background:var(--card2)}summary{padding:10px 14px;cursor:pointer;font-weight:600}
+.chips{display:flex;flex-wrap:wrap;gap:6px;padding:0 12px 12px}.chip{font-size:13px;padding:5px 11px;border-radius:8px;border:1px solid var(--bd);background:var(--card);cursor:pointer;transition:.15s}.chip.on{background:var(--ac);color:#fff;border-color:var(--ac)}
+.go{width:100%;margin-top:22px;padding:15px;border:0;border-radius:12px;font-size:17px;font-weight:600;color:#fff;cursor:pointer;background:linear-gradient(90deg,var(--ac),var(--ac2));transition:.2s}
+.go:hover{transform:translateY(-2px);box-shadow:0 8px 28px -8px var(--ac)}.go:disabled{opacity:.5;transform:none}
+.sel{color:var(--mu);font-size:13px;margin-top:8px}
+.load{text-align:center;padding:40px 0}.spin{width:44px;height:44px;border:4px solid var(--bd);border-top-color:var(--ac);border-radius:50%;margin:0 auto 14px;animation:r 1s linear infinite}@keyframes r{to{transform:rotate(360deg)}}
+.bar{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:24px 0 12px}.bar input,.bar select{width:auto;flex:1;min-width:140px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:12px}
+.card{padding:16px;animation:up .35s;transition:.2s}.card:hover{border-color:var(--ac);transform:translateY(-2px)}
+.h{display:flex;justify-content:space-between;gap:8px}.nm{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;cursor:pointer}.nm.full{white-space:normal}
+.rt{color:var(--wr);white-space:nowrap;font-size:14px}.mu{color:var(--mu);font-size:13px}
+.tag{display:inline-block;font-size:12px;padding:2px 9px;border-radius:999px;margin:6px 0}.t1{background:#34d39922;color:var(--ok)}.t2{background:#fbbf2422;color:var(--wr)}
+.acts{display:flex;flex-wrap:wrap;gap:6px;margin-top:10px}.b{font-size:13px;padding:6px 11px;border-radius:8px;border:1px solid var(--bd);background:var(--card2);cursor:pointer;text-decoration:none;color:var(--tx);transition:.15s}.b:hover{border-color:var(--ac);background:var(--card)}
+.star{background:none;border:0;cursor:pointer;font-size:18px;color:var(--mu)}.star.on{color:var(--wr)}
+.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:var(--card);border:1px solid var(--bd);padding:12px 20px;border-radius:12px;box-shadow:0 10px 30px #0006;animation:up .3s;z-index:9}
+.err{border-color:var(--er);color:var(--er);padding:14px;border:1px solid;border-radius:12px;margin-top:16px}
+.top{padding:10px 14px;gap:8px}.logo{order:1;margin-right:auto}.ic{order:2;width:34px;height:34px;font-size:15px;padding:0}
+.nav{order:3;width:100%;flex:none;overflow:visible}.nav button{white-space:nowrap;flex:1;padding:8px 6px;text-align:center;font-size:14px}
+@media(min-width:700px){.nav{order:2;width:auto;flex:1}.nav button{flex:none;padding:8px 14px}.ic{order:3}.logo{margin-right:12px}}
+#nf{margin-bottom:10px}
+
+/* скорость и анимации */
+*{-webkit-tap-highlight-color:transparent}
+button,a,.pill,.chip,summary,select{touch-action:manipulation}
+.top{backdrop-filter:none;-webkit-backdrop-filter:none;background:var(--bg)}
+main>section{animation:fade .22s ease-out}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}}
+@keyframes pop{50%{transform:scale(1.08)}}
+body,.panel,.card,input,select,.pill,.chip,details,.ic,.b{transition:background-color .3s,border-color .2s,color .3s,transform .15s,box-shadow .2s}
+button:active,.pill:active,.chip:active,.b:active,.go:active{transform:scale(.96)}
+.chip.on,.pill.on{animation:pop .22s}.star.on{animation:pop .28s}
+.nav button.on{box-shadow:inset 0 -2px 0 var(--ac)}
+.card{animation:up .35s backwards}.still .card{animation:none}
+details[open]>.chips{animation:fade .2s ease-out}
+.go{background-size:200% 100%}.go:hover{background-position:100% 0}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+
+.cb{position:relative}.cb input{padding-right:44px}
+.x{position:absolute;right:6px;top:5px;width:32px;height:32px;border:0;border-radius:8px;background:var(--card);color:var(--mu);font-size:20px;line-height:1;cursor:pointer}
+.dd{position:absolute;left:0;right:0;top:calc(100% + 6px);max-height:264px;overflow-y:auto;background:var(--card);border:1px solid var(--bd);border-radius:12px;box-shadow:0 14px 34px #0007;z-index:30;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;animation:fade .15s}
+.dd div{padding:11px 14px;min-height:44px;display:flex;align-items:center;cursor:pointer}.dd div:hover{background:var(--card2)}.dd .em{color:var(--mu)}
+#cat{display:grid;grid-template-columns:1fr 1fr;gap:8px}#cat details{margin:0}details[open]{grid-column:1/-1}
+summary{padding:9px 12px;font-size:14px}.chips{gap:5px;padding:0 10px 10px}.chip{font-size:12.5px;padding:4px 9px}
+.go{position:sticky;bottom:calc(12px + env(safe-area-inset-bottom,0px));z-index:6;box-shadow:0 10px 30px -10px #000a}
+@media(max-width:380px){#cat{grid-template-columns:1fr}}
+
+.sh{position:fixed;inset:0;z-index:50;display:flex;align-items:flex-end;justify-content:center;background:#000a;animation:fade .2s}
+.shp{width:100%;max-width:520px;max-height:80vh;max-height:80dvh;display:flex;flex-direction:column;background:var(--card);border:1px solid var(--bd);border-radius:20px 20px 0 0;padding:14px 14px calc(14px + env(safe-area-inset-bottom,0px));animation:slide .28s ease-out}
+@keyframes slide{from{transform:translateY(60px);opacity:0}}
+.shh{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;font-size:17px}
+.x2{width:36px;height:36px;border:0;border-radius:10px;background:var(--card2);color:var(--mu);font-size:22px;cursor:pointer}
+.sll{overflow-y:auto;flex:1;margin-top:10px;-webkit-overflow-scrolling:touch;min-height:0}
+.sll div{padding:15px 12px;border-bottom:1px solid var(--bd);cursor:pointer;transition:background .15s}.sll div:active,.sll div:hover{background:var(--card2)}
+.sll .cur{color:var(--ac);font-weight:600}.sll .em{color:var(--mu)}
+@media(min-width:700px){.sh{align-items:center}.shp{border-radius:20px;max-height:70vh}}
+.b.wa{background:#25d36622;border-color:#25d366;color:#25d366}.b.wa:hover{background:#25d36633}
+textarea{width:100%;background:var(--card2);border:1px solid var(--bd);border-radius:10px;padding:10px 12px;outline:0;resize:vertical;font:inherit;color:inherit}textarea:focus{border-color:var(--ac)}
+.toast{white-space:pre-line;max-width:90vw}
+.pbar{height:6px;border-radius:99px;background:var(--card2);max-width:360px;margin:14px auto 10px;overflow:hidden}.pbar i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--ac),var(--ac2));transition:width .4s}
+.card.sk{height:140px;background:linear-gradient(90deg,var(--card) 25%,var(--card2) 50%,var(--card) 75%);background-size:200% 100%;animation:shim 1.4s linear infinite}@keyframes shim{to{background-position:-200% 0}}
+</style></head><body>
+<div class="top"><span class="logo">Siteless</span>
+<nav class="nav"><button data-p="search" class="on">Поиск</button><button data-p="favs">Избранное</button><button data-p="hist">История</button><button data-p="set">Настройки</button></nav>
+<button class="ic" id="th" title="Тема">🌙</button></div>
+<main>
+<section id="p-search"><div class="panel"><h1>Поиск клиентов без сайта</h1><p class="sub">Реальные организации из Google Places — без выдуманных данных.</p>
+<div class="row"><div><label>Страна</label><select id="country"></select></div><div><label>Город (выберите или впишите)</label><div class="cb"><input id="city" readonly inputmode="none" placeholder="Нажмите, чтобы выбрать город" style="cursor:pointer"><button type="button" class="x" id="cx" aria-label="Очистить">×</button></div></div></div>
+<label>Сколько бизнесов без сайта найти</label><div class="pills" id="cnt"></div><input id="cn2" type="number" min="1" max="300" value="15" inputmode="numeric" style="margin-top:8px" placeholder="Или впишите своё число (до 300)"><div class="mu" style="margin-top:6px">Будет показано до этого числа реальных организаций без указанного сайта. Если найдётся меньше — покажем сколько есть.</div>
+<label>Ниши (можно несколько)</label><div id="cat"></div>
+<label>Своя категория</label><input id="custom" placeholder="Например, изготовление вывесок (через запятую)">
+<div class="sel" id="sel"></div>
+<button class="go" id="go">Начать поиск</button></div>
+<div id="res"></div></section>
+<section id="p-favs" class="hide"></section><section id="p-hist" class="hide"></section>
+<section id="p-set" class="hide"><div class="panel"><h1>Настройки</h1><label>Тема</label><div class="pills"><span class="pill" data-t="dark">Тёмная</span><span class="pill" data-t="light">Светлая</span></div>
+<label>Ваше имя (для сообщений)</label><input id="myname" placeholder="Например, Алексей"><label>Текст сообщения для WhatsApp</label><textarea id="tpl" rows="7"></textarea><div class="mu" style="margin:6px 0">Подстановки: {имя}, {название}, {город}, {ниша}</div><button class="b" id="rst">Вернуть стандартный текст</button><label>Язык интерфейса</label><select disabled><option>Русский</option></select>
+<label>Данные</label><div class="pills"><button class="b" id="clrH">Очистить историю</button><button class="b" id="clrF">Очистить избранное</button></div>
+<label>Статус сервера</label><div id="health" class="mu">…</div></div></section>
+</main>
+<div id="sheet" class="sh hide"><div class="shp"><div class="shh"><b>Выберите город</b><button type="button" class="x2" id="shx" aria-label="Закрыть">×</button></div><input id="sq" placeholder="Найти город или вписать свой…" autocomplete="off"><div id="sl" class="sll"></div></div></div>
+<script>
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const LS=(k,d)=>{try{return JSON.parse(localStorage.getItem(k))??d}catch{return d}},SV=(k,v)=>{try{localStorage.setItem(k,JSON.stringify(v))}catch{}};
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const CITIES={"Россия": ["Москва", "Санкт-Петербург", "Новосибирск", "Екатеринбург", "Казань", "Нижний Новгород", "Челябинск", "Самара", "Омск", "Ростов-на-Дону", "Уфа", "Красноярск", "Воронеж", "Пермь", "Волгоград", "Краснодар", "Саратов", "Тюмень", "Тольятти", "Ижевск", "Барнаул", "Ульяновск", "Иркутск", "Хабаровск", "Ярославль", "Владивосток", "Махачкала", "Томск", "Оренбург", "Кемерово", "Новокузнецк", "Рязань", "Астрахань", "Набережные Челны", "Пенза", "Липецк", "Киров", "Чебоксары", "Калининград", "Тула", "Курск", "Севастополь", "Сочи", "Ставрополь", "Белгород", "Тверь", "Владимир", "Архангельск", "Калуга", "Смоленск", "Мурманск", "Сургут", "Вологда", "Симферополь"], "Беларусь": ["Минск", "Гомель", "Могилёв", "Витебск", "Гродно", "Брест", "Бобруйск", "Барановичи", "Борисов", "Пинск", "Орша", "Мозырь", "Солигорск", "Новополоцк", "Лида", "Молодечно", "Полоцк", "Жлобин", "Светлогорск", "Речица"], "Казахстан": ["Алматы", "Астана", "Шымкент", "Караганда", "Актобе", "Тараз", "Павлодар", "Усть-Каменогорск", "Семей", "Атырау", "Костанай", "Кызылорда", "Уральск", "Петропавловск", "Актау", "Темиртау", "Туркестан", "Кокшетау", "Талдыкорган", "Экибастуз", "Рудный", "Жезказган"], "Узбекистан": ["Ташкент", "Самарканд", "Наманган", "Андижан", "Бухара", "Нукус", "Карши", "Коканд", "Фергана", "Маргилан", "Ургенч", "Термез", "Навои", "Джизак", "Гулистан", "Чирчик", "Ангрен", "Алмалык", "Хива"], "Кыргызстан": ["Бишкек", "Ош", "Джалал-Абад", "Каракол", "Токмак", "Узген", "Балыкчы", "Нарын", "Талас", "Кант", "Кара-Балта", "Баткен"], "Таджикистан": ["Душанбе", "Худжанд", "Бохтар", "Куляб", "Истаравшан", "Пенджикент", "Турсунзаде", "Вахдат", "Хорог", "Исфара"], "Туркменистан": ["Ашхабад", "Туркменабад", "Дашогуз", "Мары", "Туркменбаши", "Балканабад", "Байрамали", "Теджен", "Абадан", "Анау"], "Армения": ["Ереван", "Гюмри", "Ванадзор", "Вагаршапат", "Абовян", "Капан", "Раздан", "Армавир", "Гавар", "Артик", "Севан", "Иджеван"], "Азербайджан": ["Баку", "Гянджа", "Сумгаит", "Мингечевир", "Ширван", "Ленкорань", "Шеки", "Нахичевань", "Евлах", "Хырдалан", "Шамкир", "Куба"], "Молдова": ["Кишинёв", "Бельцы", "Тирасполь", "Бендеры", "Рыбница", "Кагул", "Унгены", "Сороки", "Оргеев", "Комрат", "Дубоссары", "Единцы"]};
+CITIES["Украина"]=["Киев", "Харьков", "Одесса", "Днепр", "Запорожье", "Львов", "Кривой Рог", "Николаев", "Винница", "Херсон", "Полтава", "Чернигов", "Черкассы", "Житомир", "Сумы", "Хмельницкий", "Ровно", "Ивано-Франковск", "Тернополь", "Луцк", "Ужгород", "Черновцы", "Кропивницкий", "Белая Церковь", "Каменское", "Кременчуг", "Бровары", "Борисполь", "Ирпень", "Буча", "Умань", "Мукачево", "Дрогобыч", "Стрый", "Червоноград", "Коломыя", "Калуш", "Бердичев", "Нежин", "Прилуки", "Конотоп", "Шостка", "Славутич", "Павлоград", "Каменец-Подольский", "Мелитополь", "Бердянск", "Никополь", "Лубны", "Сарны", "Тростянец", "Фастов", "Обухов", "Вышгород", "Васильков", "Боярка", "Вишнёвое", "Новояворовск", "Трускавец", "Яремче", "Моршин", "Славянск", "Краматорск", "Северодонецк", "Лисичанск"];
+const CAT={"👶 Дети и образование":["Частные детские сады","Детские развивающие центры","Детские образовательные центры","Логопеды","Репетиторы","Частные школы","Детские игровые комнаты","Детские кружки","Школы танцев для детей"],
+"💅 Красота и уход":["Салоны красоты","Парикмахерские","Барбершопы","Ногтевые студии","Студии маникюра","Студии педикюра","Косметологические центры","Массажные салоны","Бровисты","Визажисты"],
+"🐾 Животные":["Ветеринарные клиники","Груминг-салоны","Зоомагазины","Гостиницы для животных","Дрессировка собак","Питомники","Центры ухода за животными"],
+"👨‍👩‍👧 Семья и услуги":["Семейные фотостудии","Детские фотографы","Свадебные агентства","Организаторы мероприятий","Клининговые компании","Частные няни","Организация праздников"],
+"🔨 Строительство и ремонт":["Ремонт квартир","Строительные компании","Дизайн интерьеров","Мебельные мастерские","Производство мебели","Натяжные потолки","Окна и двери","Электрики","Сантехники"],
+"🚗 Автомобили":["Автосервисы","Автомойки","Шиномонтажи","Детейлинг-центры","Автосалоны","Автошколы","Автопрокат"],
+"☕ Еда и заведения":["Кофейни","Рестораны","Кафе","Пекарни","Кондитерские","Пиццерии","Доставка еды"],
+"🏋 Спорт и здоровье":["Фитнес-клубы","Спортивные студии","Йога-центры","Танцевальные студии","Бассейны","Спортивные секции"],
+"🛍 Магазины и производство":["Магазины одежды","Цветочные магазины","Магазины подарков","Мебельные магазины","Магазины освещения","Производители неоновых вывесок","Производители рекламных конструкций","Локальные производители"],
+"💼 Другие услуги":["Юридические компании","Бухгалтерские услуги","Туристические агентства","Рекламные агентства","Типографии","Дизайн-студии","Организация мероприятий","Аренда помещений"]};
+
+const MORE={"👶 Дети и образование":["Языковые школы","Музыкальные школы","Школы вокала","Школы рисования","Художественные студии","Курсы программирования","Кулинарные школы","Центры повышения квалификации","Аниматоры","Детские психологи","Центры раннего развития","Школы шахмат"],
+"💅 Красота и уход":["Тату-салоны","Студии депиляции","Студии эпиляции","Студии ресниц","Студии перманентного макияжа","Спа-салоны","Солярии","Эстетические студии","Магазины косметики","Студии загара"],
+"🐾 Животные":["Зоогостиницы","Кинологи","Магазины кормов для животных","Аквариумные магазины","Конные клубы"],
+"👨‍👩‍👧 Семья и услуги":["Ведущие мероприятий","Видеографы","Аренда фотостудий","Аренда декора","Банкетные залы","Флористы-декораторы","Студии звукозаписи","Свадебные салоны","Кейтеринг","Курьерские службы","Грузоперевозки","Переводческие бюро"],
+"🔨 Строительство и ремонт":["Магазины стройматериалов","Магазины сантехники","Магазины плитки","Магазины текстиля","Садовые центры","Ландшафтный дизайн","Кровельные работы","Малярные работы","Укладка плитки","Сварочные работы","Металлоконструкции","Слесари","Установка кондиционеров","Изготовление ключей","Мастера на час","Остекление балконов","Ремонт бытовой техники"],
+"🚗 Автомобили":["Автозапчасти","Кузовной ремонт","Автоэлектрики","Эвакуаторы","Автостёкла","Тонировка","Покраска авто","Тюнинг-ателье","Автостоянки","Мотосалоны","Ремонт мотоциклов"],
+"☕ Еда и заведения":["Бары","Пабы","Суши-бары","Фастфуд","Кальянные","Столовые","Шашлычные","Кулинарии","Мясные магазины","Рыбные магазины","Овощные магазины","Продуктовые магазины","Алкогольные магазины","Чайные магазины","Кофе-магазины"],
+"🏋 Спорт и здоровье":["Секции единоборств","Боксёрские клубы","Скалодромы","Теннисные корты","Школы плавания","Пилатес-студии","Кроссфит-залы","Спортивные магазины","Веломагазины","Магазины для рыбалки"],
+"🛍 Магазины и производство":["Книжные магазины","Канцелярские магазины","Магазины игрушек","Ювелирные магазины","Магазины детской одежды","Магазины обуви","Магазины сумок","Секонд-хенды","Антикварные магазины","Магазины хозтоваров","Магазины для рукоделия","Печать на футболках","Фотопечать","Копировальные центры"],
+"💼 Другие услуги":["Нотариусы","Страховые компании","Агентства недвижимости","Коворкинги","Кадровые агентства","Охранные компании"],
+"🩺 Медицина":["Стоматологии","Частные клиники","Аптеки","Оптики","Медицинские центры","Психологи","Диагностические центры","Центры реабилитации","Лаборатории анализов","Остеопаты","Косметологические клиники"],
+"🏨 Отдых и развлечения":["Гостиницы","Хостелы","Гостевые дома","Базы отдыха","Бани и сауны","Глэмпинги","Квесты","Развлекательные центры","Бильярдные клубы","Боулинг-клубы","Караоке"],
+"🧵 Ремонт и мастерские":["Ателье","Химчистки","Прачечные","Ремонт обуви","Ремонт одежды","Ремонт часов","Ювелирные мастерские","Ломбарды"],
+"💻 Техника и IT":["Ремонт телефонов","Ремонт компьютеров","Сервисные центры","Магазины электроники","Компьютерные магазины","Магазины мобильных телефонов"]};
+for(const[k,v]of Object.entries(MORE))CAT[k]=[...new Set([...(CAT[k]||[]),...v])];
+let count=15,niches=new Set(),items=[],favs=LS("favs",[]),hist=LS("hist",[]);
+function toast(m){const t=document.createElement("div");t.className="toast";t.textContent=m;document.body.append(t);setTimeout(()=>t.remove(),2600)}
+function theme(t){document.documentElement.dataset.theme=t;SV("theme",t);$("#th").textContent=t=="dark"?"🌙":"☀️";$$("[data-t]").forEach(p=>p.classList.toggle("on",p.dataset.t==t))}
+theme(LS("theme","dark"));$("#th").onclick=()=>theme(document.documentElement.dataset.theme=="dark"?"light":"dark");$$("[data-t]").forEach(p=>p.onclick=()=>theme(p.dataset.t));
+$("#country").innerHTML=Object.keys(CITIES).map(c=>`<option>${c}</option>`).join("");
+const fillCities=()=>{$("#city").value=CITIES[$("#country").value][0];closeSheet()};$("#country").onchange=fillCities;fillCities();
+function closeSheet(){$("#sheet").classList.add("hide");document.body.style.overflow=""}
+function rList(q){const all=CITIES[$("#country").value]||[],f=q?all.filter(c=>c.toLowerCase().includes(q.toLowerCase())):all,cur=$("#city").value;
+let h=f.map(c=>`<div data-v="${esc(c)}" class="${c==cur?"cur":""}">${esc(c)}${c==cur?" ✓":""}</div>`).join("");
+if(q&&!all.some(c=>c.toLowerCase()==q.toLowerCase()))h=`<div data-v="${esc(q)}" class="em">Использовать «${esc(q)}»</div>`+h;
+if(!h)h='<div class="em">Ничего не найдено</div>';$("#sl").innerHTML=h;
+$$("#sl [data-v]").forEach(x=>x.onclick=()=>{$("#city").value=x.dataset.v;closeSheet()})}
+function openSheet(){$("#sq").value="";rList("");$("#sheet").classList.remove("hide");document.body.style.overflow="hidden";$("#sl").scrollTop=0}
+$("#city").onclick=openSheet;$("#sq").oninput=()=>rList($("#sq").value.trim());
+$("#shx").onclick=closeSheet;$("#sheet").onclick=e=>{if(e.target===$("#sheet"))closeSheet()};
+document.addEventListener("keydown",e=>{if(e.key=="Escape")closeSheet()});
+$("#cx").onclick=()=>{$("#city").value=""};
+$("#cnt").innerHTML=[15,30,50,100].map(n=>`<span class="pill ${n==15?"on":""}" data-n="${n}">${n} бизнесов</span>`).join("");
+$$("[data-n]").forEach(p=>p.onclick=()=>{count=+p.dataset.n;$("#cn2").value=count;$$("[data-n]").forEach(x=>x.classList.toggle("on",x==p))});$("#cn2").oninput=()=>{count=Math.max(1,Math.min(300,parseInt($("#cn2").value)||15));$$("[data-n]").forEach(x=>x.classList.toggle("on",+x.dataset.n==count))};
+$("#cat").innerHTML=Object.entries(CAT).map(([k,v])=>`<details><summary>${k} <small class="mu" data-b="${k}"></small></summary><div class="chips">${v.map(n=>`<span class="chip" data-c="${n}">${n}</span>`).join("")}</div></details>`).join("");
+const upSel=()=>{$$("[data-b]").forEach(b=>{const n=(CAT[b.dataset.b]||[]).filter(x=>niches.has(x)).length;b.textContent=n?"· выбрано "+n:""});$("#sel").textContent=niches.size?"Выбрано: "+[...niches].join(", "):"Ниши не выбраны"};upSel();
+$$("[data-c]").forEach(c=>c.onclick=()=>{const n=c.dataset.c;niches.has(n)?niches.delete(n):niches.add(n);c.classList.toggle("on");upSel()});
+$$(".nav button").forEach(b=>b.onclick=()=>{window.scrollTo(0,0);if(b.dataset.p=="search"&&$("#list")&&items.length)render();$$(".nav button").forEach(x=>x.classList.toggle("on",x==b));["search","favs","hist","set"].forEach(p=>$("#p-"+p).classList.toggle("hide",p!=b.dataset.p));if(b.dataset.p=="favs")rFavs();if(b.dataset.p=="hist")rHist();if(b.dataset.p=="set")health()});
+async function health(){try{const j=await(await fetch("/api/health")).json();$("#health").textContent=j.configured?"✅ API-ключ настроен":"⚠️ API-ключ не задан (см. README)"}catch{$("#health").textContent="❌ Сервер недоступен"}}
+
+let P=null,TM=null;
+function startProg(){P={f:0,s:0,df:0,ds:0,stage:"Определяем город на карте…",t0:Date.now(),lo:3,hi:15,ts:Date.now()};TM=setInterval(tick,200)}
+function stopProg(){clearInterval(TM);P=null;document.title=ORIGT}
+function tick(){if(!P)return;const m=(c,t)=>Math.abs(t-c)<.5?t:c+(t-c)*.35;P.df=m(P.df,P.f);P.ds=m(P.ds,P.s);const el=Math.floor((Date.now()-P.t0)/1000),e=$("#pg"),st=$("#st"),pb=$("#pb");
+const tp=P.lo+(P.hi-P.lo)*(1-Math.exp(-(Date.now()-P.ts)/12000)),pct=Math.min(98,Math.max(tp,Math.min(95,P.f/count*95)));
+if(pb)pb.style.width=pct+"%";
+if(e)e.textContent=`Найдено: ${Math.round(P.df)} из ${count} · Проверено: ${Math.round(P.ds)} · ${el} с`;
+if(st)st.textContent=P.stage+(el>15?" Сервер карт отвечает медленно — это нормально, подождите.":"");
+document.title=`⏳ Ищем… ${el} с — Siteless`}
+function stg(t,lo,hi){if(P){P.stage=t;P.lo=lo;P.hi=hi;P.ts=Date.now()}}
+const ORIGT=document.title;document.addEventListener("visibilitychange",()=>{if(!document.hidden)document.title=ORIGT});
+const DIAL={"Россия":"7","Беларусь":"375","Казахстан":"7","Узбекистан":"998","Кыргызстан":"996","Таджикистан":"992","Туркменистан":"993","Армения":"374","Азербайджан":"994","Молдова":"373","Украина":"380"};
+function waNum(phone,country){if(!phone)return null;const raw=String(phone).split(/[;,]/)[0].trim(),d=raw.replace(/\D/g,""),cc=DIAL[country]||"";
+if(raw.startsWith("+")&&d.length>=10)return d;if(cc&&d.startsWith(cc)&&d.length>=cc.length+8)return d;
+if(cc=="7"&&d.length==11&&d[0]=="8")return "7"+d.slice(1);if(cc=="380"&&d.length==10&&d[0]=="0")return "380"+d.slice(1);if(cc=="375"&&d.length==11&&d.startsWith("80"))return "375"+d.slice(2);if(cc=="7"&&d.length==10)return "7"+d;return null}
+const DEF_TPL="Здравствуйте! Меня зовут {имя}. Увидел(а) «{название}» на картах и заметил(а), что у вас нет собственного сайта. Я делаю аккуратные сайты для бизнеса в городе {город}. Могу показать примеры работ и назвать стоимость — вам было бы интересно?";
+function msg(i){let r=LS("tpl",DEF_TPL);const n=LS("myname","");if(!n)r=r.replace(/Меня зовут \{имя\}\.?\s*/g,"");
+return r.replace(/\{имя\}/g,n).replace(/\{название\}/g,i.name||"").replace(/\{город\}/g,i.city||"").replace(/\{ниша\}/g,(i.niche||"").toLowerCase())}
+$("#tpl").value=LS("tpl",DEF_TPL);$("#myname").value=LS("myname","");
+$("#tpl").oninput=()=>SV("tpl",$("#tpl").value);$("#myname").oninput=()=>SV("myname",$("#myname").value.trim());
+$("#rst").onclick=()=>{$("#tpl").value=DEF_TPL;SV("tpl",DEF_TPL);toast("Текст сброшен")};
+function card(i){const wn=waNum(i.phone,i.country||$("#country").value),mt=encodeURIComponent(msg(i));const fav=favs.some(f=>f.id==i.id),ph=i.phone?i.phone.replace(/[^\d+]/g,""):"",ig=i.social.find(s=>/instagram\.com/i.test(s)),oth=i.social.filter(s=>s!=ig);
+return `<div class="card"><div class="h"><div style="min-width:0"><div class="nm" title="${esc(i.name)}" onclick="this.classList.toggle('full')">${esc(i.name)}</div><div class="mu">${esc(i.category)}</div></div><div><button class="star ${fav?"on":""}" data-f="${esc(i.id)}">★</button>${i.rating?`<div class="rt">${"★".repeat(Math.round(i.rating))} ${i.rating}</div>`:""}</div></div>
+<span class="tag ${i.status=="no_site"?"t1":"t2"}">${i.status=="no_site"?"Сайт не найден":"Требуется дополнительная проверка"}</span>
+<div class="mu">📍 ${esc(i.address)}</div><div class="mu">${i.phone?"📞 "+esc(i.phone):"Телефон не указан"}${i.reviews?` · ${i.reviews} отзывов`:""}</div>
+<div class="acts">${wn?`<a class="b wa" target="_blank" rel="noopener" href="https://wa.me/${wn}?text=${mt}">WhatsApp</a><button class="b" data-cm="${mt}">Текст</button>`:""}<a class="b" target="_blank" rel="noopener" href="${esc(i.maps)}">Google Maps</a>${ig?`<a class="b" target="_blank" rel="noopener" href="${esc(ig)}">Instagram</a>`:""}${oth.map(s=>`<a class="b" target="_blank" rel="noopener" href="${esc(s)}">${esc(new URL(s).hostname.replace("www.",""))}</a>`).join("")}${ph?`<a class="b" href="tel:${esc(ph)}">Позвонить</a><button class="b" data-cp="${esc(i.phone)}">Скопировать номер</button>`:""}</div></div>`}
+function bind(root){root.querySelectorAll("[data-cm]").forEach(b=>b.onclick=()=>navigator.clipboard.writeText(decodeURIComponent(b.dataset.cm)).then(()=>toast("Текст скопирован"),()=>toast("Не удалось скопировать")));root.querySelectorAll("[data-cp]").forEach(b=>b.onclick=()=>navigator.clipboard.writeText(b.dataset.cp).then(()=>toast("Номер скопирован"),()=>toast("Не удалось скопировать")));
+root.querySelectorAll("[data-f]").forEach(b=>b.onclick=()=>{const id=b.dataset.f,it=[...items,...favs].find(x=>x.id==id);favs=favs.some(f=>f.id==id)?favs.filter(f=>f.id!=id):[...favs,it];SV("favs",favs);b.classList.toggle("on");if(!$("#p-favs").classList.contains("hide"))rFavs()})}
+function rFavs(){$("#p-favs").innerHTML=`<h1>Избранное</h1>`+(favs.length?`<div class="grid">${favs.map(card).join("")}</div>`:`<p class="sub">Пока пусто — отметьте ★ в результатах.</p>`);bind($("#p-favs"))}
+function rHist(){$("#p-hist").innerHTML=`<h1>История поиска</h1>`+(hist.length?hist.map((h,i)=>`<div class="card" style="margin-bottom:8px"><b>${esc(h.city)}, ${esc(h.country)}</b> · ${esc(h.niches.join(", "))}<div class="mu">${new Date(h.t).toLocaleString("ru")} · найдено ${h.found}</div><div class="acts"><button class="b" data-r="${i}">Повторить</button></div></div>`).join(""):`<p class="sub">Поисков пока не было.</p>`);
+$$("[data-r]").forEach(b=>b.onclick=()=>{const h=hist[b.dataset.r];$("#country").value=h.country;fillCities();$("#city").value=h.city;count=h.count;$("#cn2").value=count;$$("[data-n]").forEach(x=>x.classList.toggle("on",+x.dataset.n==count));niches=new Set(h.niches.filter(n=>$$("[data-c]").some(c=>c.dataset.c==n)));$$("[data-c]").forEach(c=>c.classList.toggle("on",niches.has(c.dataset.c)));$("#custom").value=h.niches.filter(n=>!niches.has(n)).join(", ");upSel();$(".nav button").click();$("#go").click()})}
+$("#clrH").onclick=()=>{hist=[];SV("hist",hist);toast("История очищена")};$("#clrF").onclick=()=>{favs=[];SV("favs",favs);toast("Избранное очищено")};
+function render(){const q=($("#q")?.value||"").toLowerCase(),f=$("#fc")?.value||"",s=$("#so")?.value||"";let l=items.filter(i=>(!q||(i.name+i.address).toLowerCase().includes(q))&&(!f||i.niche==f));
+if(s=="r")l=[...l].sort((a,b)=>(b.rating||0)-(a.rating||0));if(s=="v")l=[...l].sort((a,b)=>(b.reviews||0)-(a.reviews||0));
+$("#list").innerHTML=l.map(card).join("");bind($("#list"));const L=$("#list");if(!L.classList.contains("seen")){Array.from(L.children||[]).forEach((c,i)=>c.style.animationDelay=Math.min(i,12)*30+"ms");setTimeout(()=>L.classList.add("seen"),900)}$("#cn").textContent=`Найдено: ${l.length} ${l.length==1?"бизнес":"бизнесов"}`}
+
+const RULES=[[/салон красоты|парикмахер|барбер/i,["shop=hairdresser","shop=beauty"]],[/ногт|маникюр|педикюр|косметолог|бровист|визажист/i,["shop=beauty"]],[/массаж/i,["shop=massage"]],[/ветеринар/i,["amenity=veterinary"]],[/груминг/i,["shop=pet_grooming"]],[/зоомагаз/i,["shop=pet"]],[/кофейн|кафе/i,["amenity=cafe"]],[/ресторан/i,["amenity=restaurant"]],[/пекарн/i,["shop=bakery"]],[/кондитер/i,["shop=pastry"]],[/пиццер/i,["cuisine=pizza"]],[/автосервис/i,["shop=car_repair"]],[/автомойк/i,["amenity=car_wash"]],[/шиномонтаж/i,["shop=tyres"]],[/автосалон/i,["shop=car"]],[/автошкол/i,["amenity=driving_school"]],[/автопрокат/i,["amenity=car_rental"]],[/фитнес|спортивные студии/i,["leisure=fitness_centre"]],[/йога/i,["sport=yoga"]],[/бассейн/i,["leisure=swimming_pool"]],[/танц/i,["amenity=dancing_school"]],[/детские сады/i,["amenity=kindergarten"]],[/частные школы/i,["amenity=school"]],[/одежд/i,["shop=clothes"]],[/цветоч/i,["shop=florist"]],[/подарк/i,["shop=gift"]],[/мебельные магазин/i,["shop=furniture"]],[/освещ/i,["shop=lighting"]],[/юридич/i,["office=lawyer"]],[/бухгалтер/i,["office=accountant"]],[/туристич/i,["shop=travel_agency"]],[/рекламные агентств/i,["office=advertising_agency"]],[/типограф/i,["craft=printer"]],[/фотостуд|фотограф/i,["shop=photo","craft=photographer"]],[/свадеб/i,["shop=wedding"]],[/строительные/i,["office=construction_company"]],[/электрик/i,["craft=electrician"]],[/сантехник/i,["craft=plumber"]],[/окна и двери/i,["craft=window_construction"]],[/мебельные мастерские|производство мебели/i,["craft=carpenter"]]];
+RULES.unshift([/стоматолог/i,["amenity=dentist"]],[/частные клиники|медицинские центры|клиники/i,["amenity=clinic"]],[/аптек/i,["amenity=pharmacy"]],[/оптик/i,["shop=optician"]],[/химчистк/i,["shop=dry_cleaning"]],[/прачечн/i,["shop=laundry"]],[/ателье|ремонт одежды/i,["craft=tailor"]],[/ремонт обуви/i,["craft=shoemaker"]],[/ремонт часов/i,["craft=watchmaker"]],[/ювелир/i,["shop=jewelry"]],[/ломбард/i,["shop=pawnbroker"]],[/книжн/i,["shop=books"]],[/канцеляр/i,["shop=stationery"]],[/игрушек/i,["shop=toys"]],[/спортивные магазины/i,["shop=sports"]],[/веломагаз/i,["shop=bicycle"]],[/электроники/i,["shop=electronics"]],[/мобильных|ремонт телефонов/i,["shop=mobile_phone"]],[/компьютер/i,["shop=computer"]],[/стройматериал/i,["shop=doityourself"]],[/садовые центры/i,["shop=garden_centre"]],[/гостиниц/i,["tourism=hotel"]],[/хостел/i,["tourism=hostel"]],[/гостевые дома/i,["tourism=guest_house"]],[/бани|сауны/i,["leisure=sauna"]],[/тату/i,["shop=tattoo"]],[/солярии|загара/i,["shop=tanning"]],[/нотариус/i,["office=notary"]],[/страхов/i,["office=insurance"]],[/недвижимост/i,["office=estate_agent"]],[/коворкинг/i,["office=coworking"]],[/бары/i,["amenity=bar"]],[/пабы/i,["amenity=pub"]],[/суши/i,["cuisine=sushi"]],[/фастфуд/i,["amenity=fast_food"]],[/кальянн/i,["amenity=hookah_lounge"]],[/мясные/i,["shop=butcher"]],[/рыбные/i,["shop=seafood"]],[/овощные/i,["shop=greengrocer"]],[/продуктовые/i,["shop=convenience"]],[/алкогольн/i,["shop=alcohol"]],[/чайные|кофе-магазины/i,["shop=tea","shop=coffee"]],[/автозапчаст/i,["shop=car_parts"]],[/автостоянк/i,["amenity=parking"]],[/музыкальные школы/i,["amenity=music_school"]],[/языковые школы/i,["amenity=language_school"]],[/ремонт бытовой техники|ремонт компьютеров|сервисные центры/i,["craft=electronics_repair"]],[/ключ/i,["craft=key_cutter","shop=locksmith"]],[/кровельн/i,["craft=roofer"]],[/малярн/i,["craft=painter"]],[/плитки/i,["craft=tiler"]],[/сварочн|металлоконструкц/i,["craft=metal_construction"]],[/копировальные|фотопечать/i,["shop=copyshop"]],[/магазины сантехники/i,["shop=bathroom_furnishing"]],[/магазины текстиля/i,["shop=fabric"]],[/секонд/i,["shop=second_hand"]],[/магазины обуви/i,["shop=shoes"]],[/магазины сумок/i,["shop=bag"]],[/магазины косметики/i,["shop=cosmetics"]],[/бильярд/i,["leisure=billiards"]],[/боулинг/i,["leisure=bowling_alley"]],[/скалодром/i,["sport=climbing"]],[/кинологи|дрессировка/i,["amenity=animal_training"]]);
+RULES.unshift([/глэмпинг/i,["tourism=camp_site","tourism=chalet"]],[/базы отдыха/i,["tourism=chalet","leisure=resort"]],[/квест/i,["leisure=escape_game"]],[/развлекательные центры/i,["leisure=amusement_arcade"]],[/караоке/i,["amenity=karaoke_box"]],[/логопед/i,["healthcare=speech_therapist"]],[/психолог/i,["healthcare=psychotherapist"]],[/диагностические|лаборатории анализов/i,["healthcare=laboratory"]],[/остеопат/i,["healthcare=alternative"]],[/центры реабилитации/i,["healthcare=rehabilitation"]],[/детские развивающие|раннего развития|детские образовательные|детские игровые/i,["amenity=childcare"]],[/дизайн-студии|дизайн интерьеров/i,["office=design"]],[/неоновых|рекламных конструкций/i,["craft=sign_maker"]],[/гостиницы для животных|зоогостиницы/i,["amenity=animal_boarding"]],[/питомники/i,["amenity=animal_breeding"]],[/детейлинг/i,["shop=car_repair","amenity=car_wash"]]);
+const OFR=["https://overpass-api.de/api/interpreter","https://overpass.kumi.systems/api/interpreter","https://overpass.private.coffee/api/interpreter"];
+async function osm(country,city,list,limit,out){
+ const g=await(await fetch("https://nominatim.openstreetmap.org/search?format=json&limit=1&accept-language=ru&q="+encodeURIComponent(city+", "+country))).json();
+ if(!g[0])throw new Error("Город не найден в OpenStreetMap");
+ const[S,N,W,E]=g[0].boundingbox,bb=`(${S},${W},${N},${E})`,seen=new Set();let scanned=0,fails=0;
+ for(const[ni,niche]of list.entries()){stg(`Ищем: ${niche} (${ni+1} из ${list.length})…`,15+75*ni/list.length,15+75*(ni+1)/list.length);
+  const rule=RULES.find(r=>r[0].test(niche));
+  const stem=niche.toLowerCase().replace(/[^а-яёa-z ]/gi,"").split(" ")[0].slice(0,6);
+  const f=(rule?rule[1].map(x=>{const[k,v]=x.split("=");return `["${k}"="${v}"]`}):[`["name"~"${stem}",i][~"^(shop|amenity|office|craft|tourism|leisure|healthcare)$"~"."]`]);
+  const q=`[out:json][timeout:25];(`+f.map(x=>`nwr${x}["name"][!"website"][!"contact:website"][!"url"]${bb};`).join("")+`);out center tags 200;`;
+  let d=null;for(const ep of OFR){const ac=new AbortController(),tm=setTimeout(()=>ac.abort(),35000);try{const r=await fetch(ep,{method:"POST",body:"data="+encodeURIComponent(q),signal:ac.signal});if(r.ok){const j=await r.json();if(!(j.remark&&/timed out|out of memory|runtime error/i.test(j.remark)&&!(j.elements||[]).length)){d=j;clearTimeout(tm);break}}}catch{}clearTimeout(tm);P&&(P.stage="Сервер карт занят, пробуем другой…")}
+  if(!d){fails++;continue}
+  for(const e of d.elements){scanned++;const t=e.tags||{},id=e.type+e.id;if(seen.has(id))continue;seen.add(id);
+   const phone=t.phone||t["contact:phone"]||t["contact:mobile"]||null;
+   const soc=[["instagram","https://instagram.com/"],["vk","https://vk.com/"],["facebook","https://facebook.com/"],["telegram","https://t.me/"]].map(([k,u])=>{let v=t["contact:"+k];return v?(/^http/i.test(v)?v:u+v.replace(/^@/,"")):null}).filter(Boolean);
+   const addr=[t["addr:street"],t["addr:housenumber"]].filter(Boolean).join(", ")||city;
+   out.push({id,name:t.name,category:niche,niche,address:addr,phone,rating:null,reviews:null,status:"no_site",social:soc,
+    maps:"https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(t.name+" "+addr+" "+city)});
+   if(out.length>=limit)break;}
+  P&&(P.f=out.length,P.s=scanned);
+  if(out.length>=limit)break;
+ }
+ if(fails==list.length)throw new Error("Серверы карт сейчас перегружены или не отвечают. Повторите через минуту, выберите менее крупный город или другую нишу.");window._osm=true;return out.length}
+$("#go").onclick=async()=>{const city=$("#city").value.trim(),country=$("#country").value,list=[...niches,...$("#custom").value.split(",").map(s=>s.trim()).filter(Boolean)];
+if(!city)return toast("Укажите город");if(!list.length)return toast("Выберите хотя бы одну нишу");
+items=[];const res=$("#res");$("#go").disabled=true;
+res.innerHTML=`<div class="load"><div class="spin"></div><b>Ищем подходящие бизнесы…</b><div class="mu">${esc(city)} · ${esc(list.join(", "))}</div><div class="pbar"><i id="pb"></i></div><div class="mu" id="pg">Найдено: 0 · Проверено: 0 · 0 с</div><div class="mu" id="st" style="margin-top:4px"></div></div><div class="grid" style="margin-top:8px">${Array.from({length:Math.min(count,6)},()=>'<div class="card sk"></div>').join("")}</div>`;
+let found=0,err=null;startProg();
+window._osm=false;try{let r=null;try{r=await fetch("/api/search",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({country,city,niches:list,limit:count})})}catch{}
+if(!r||r.status==404||r.status==405){found=await osm(country,city,list,count,items)}else{if(!r.ok)throw new Error((await r.json().catch(()=>({}))).error||"Ошибка сервера "+r.status);
+const rd=r.body.getReader(),dc=new TextDecoder();let buf="";
+for(;;){const{done,value}=await rd.read();if(done)break;buf+=dc.decode(value,{stream:true});const ls=buf.split("\n");buf=ls.pop();
+for(const ln of ls){if(!ln)continue;const m=JSON.parse(ln);if(m.type=="item")items.push(m.item);if(m.type=="progress"&&P){P.f=m.found;P.s=m.scanned;P.stage="Ищем через Google Places…"}if(m.type=="done")found=m.found;if(m.type=="error")err=m.error}}}}
+catch(e){err=/load failed|failed to fetch|networkerror/i.test(e.message)?"нет доступа к интернету из этого окна. Откройте страницу по ссылке в Safari (разместите index.html на хостинге) или запустите сервер":e.message}
+$("#go").disabled=false;stopProg();
+if(err&&!items.length){res.innerHTML=`<div class="err">Не удалось выполнить поиск: ${esc(err)}</div>`;return}
+if(!items.length){res.innerHTML=`<div class="panel" style="margin-top:16px">Ничего не найдено. Попробуйте другой город, другие ниши или увеличьте количество.</div>`;return}
+items.forEach(i=>{i.country=country;i.city=city});hist=[{country,city,niches:list,count,found:items.length,t:Date.now()},...hist].slice(0,30);SV("hist",hist);
+res.innerHTML=`${err?`<div class="err">Поиск прерван: ${esc(err)}. Показаны найденные результаты.</div>`:""}<div class="bar"><b id="cn"></b><button class="b" id="edtpl">Текст сообщения</button><input id="q" placeholder="Поиск по результатам"><select id="fc"><option value="">Все категории</option>${[...new Set(items.map(i=>i.niche))].map(n=>`<option>${esc(n)}</option>`).join("")}</select><select id="so"><option value="">Без сортировки</option><option value="r">По рейтингу</option><option value="v">По отзывам</option></select></div><div class="grid" id="list"></div>`;
+if(window._osm)res.insertAdjacentHTML("afterbegin",`<div class="mu" style="margin-top:14px">Источник: OpenStreetMap (серверный режим не запущен). Данные открытые и неполные: рейтингов нет, «нет сайта» означает «сайт не указан в карточке» — проверяйте вручную.</div>`);
+["q","fc","so"].forEach(i=>$("#"+i).oninput=render);$("#edtpl").onclick=()=>$$(".nav button")[3].click();render();
+document.title=`✅ Найдено: ${items.length} — Siteless`;toast(items.length<count?`Готово: найдено ${items.length} из ${count} запрошенных`:"Поиск завершён ✓")};
+</script></body></html>
